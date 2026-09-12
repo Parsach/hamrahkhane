@@ -44,3 +44,5 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+/.pack-stage/
+/hamrahkhane-site.tar.gz
