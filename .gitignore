@@ -46,3 +46,5 @@ next-env.d.ts
 /work/
 /.pack-stage/
 /hamrahkhane-site.tar.gz
+/hamrahkhane-deploy.tar.gz
+.dev.vars

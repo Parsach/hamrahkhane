@@ -8,6 +8,20 @@
       "when": 1789227165114,
       "tag": "0000_ambitious_wrecker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789806076600,
+      "tag": "0001_harsh_angel",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789808792293,
+      "tag": "0002_chunky_morlocks",
+      "breakpoints": true
     }
   ]
 }
