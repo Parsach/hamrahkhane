@@ -9,7 +9,7 @@ const integer = (value: unknown, fallback = 0) => Number.isFinite(Number(value))
 function values(payload: Record<string, unknown>) {
   return {
     id: text(payload.id), name: text(payload.name), category: text(payload.category, "آشپزخانه"), price: integer(payload.price), oldPrice: payload.oldPrice ? integer(payload.oldPrice) : null,
-    rating: text(payload.rating, "۴.۵"), badge: text(payload.badge), icon: text(payload.icon, "PackageCheck"), tone: text(payload.tone, "blue"), description: text(payload.description), active: payload.active === false ? 0 : 1, sortOrder: integer(payload.sortOrder),
+    rating: text(payload.rating, "۴.۵"), badge: text(payload.badge), icon: text(payload.icon, "PackageCheck"), tone: text(payload.tone, "blue"), image: text(payload.image), description: text(payload.description), active: payload.active === false ? 0 : 1, sortOrder: integer(payload.sortOrder),
   };
 }
 

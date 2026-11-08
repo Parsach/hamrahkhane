@@ -33,6 +33,7 @@ export const products = sqliteTable("products", {
   badge: text("badge").notNull().default(""),
   icon: text("icon").notNull().default("PackageCheck"),
   tone: text("tone").notNull().default("blue"),
+  image: text("image").notNull().default(""),
   description: text("description").notNull().default(""),
   active: integer("active").notNull().default(1),
   sortOrder: integer("sort_order").notNull().default(0),
