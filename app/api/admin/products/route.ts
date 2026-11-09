@@ -5,11 +5,21 @@ import { requireAdmin } from "../_auth";
 
 const text = (value: unknown, fallback = "") => typeof value === "string" ? value.trim() : fallback;
 const integer = (value: unknown, fallback = 0) => Number.isFinite(Number(value)) ? Math.round(Number(value)) : fallback;
+const gallery = (value: unknown) => {
+  if (typeof value !== "string") return "[]";
+  try {
+    const items = JSON.parse(value) as unknown;
+    if (!Array.isArray(items)) return "[]";
+    const safe = items.filter((item): item is string => typeof item === "string" && (item.startsWith("/") || item.startsWith("https://") || item.startsWith("data:image/"))).slice(0, 6);
+    const serialized = JSON.stringify(safe);
+    return serialized.length <= 1800000 ? serialized : "[]";
+  } catch { return "[]"; }
+};
 
 function values(payload: Record<string, unknown>) {
   return {
     id: text(payload.id), name: text(payload.name), category: text(payload.category, "آشپزخانه"), price: integer(payload.price), oldPrice: payload.oldPrice ? integer(payload.oldPrice) : null,
-    rating: text(payload.rating, "۴.۵"), badge: text(payload.badge), icon: text(payload.icon, "PackageCheck"), tone: text(payload.tone, "blue"), image: text(payload.image), description: text(payload.description), active: payload.active === false ? 0 : 1, sortOrder: integer(payload.sortOrder),
+    rating: text(payload.rating, "۴.۵"), badge: text(payload.badge), icon: text(payload.icon, "PackageCheck"), tone: text(payload.tone, "blue"), image: text(payload.image), gallery: gallery(payload.gallery), description: text(payload.description), slug: text(payload.slug), seoTitle: text(payload.seoTitle), seoDescription: text(payload.seoDescription), seoKeywords: text(payload.seoKeywords), imageAlt: text(payload.imageAlt), active: payload.active === false ? 0 : 1, sortOrder: integer(payload.sortOrder),
   };
 }
 
