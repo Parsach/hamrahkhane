@@ -23,7 +23,13 @@ export async function POST() {
     let cursor = Math.random() * totalWeight;
     const selected = prizes.find((item) => { cursor -= Math.max(1, item.weight); return cursor <= 0; }) || prizes[0];
     const prize = "label" in selected ? selected.label : "جایزه همراه‌خانه";
-    const couponCode = selected.couponCode || `HAMRAH-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    const baseCouponCode = selected.couponCode || "HAMRAH";
+    let couponCode = `${baseCouponCode}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const [collision] = await db.select({ id: wheelSpins.id }).from(wheelSpins).where(eq(wheelSpins.couponCode, couponCode)).limit(1);
+      if (!collision) break;
+      couponCode = `${baseCouponCode}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    }
     const [spin] = await db.insert(wheelSpins).values({ userId: user.userId, prize, couponCode }).returning({ prize: wheelSpins.prize, couponCode: wheelSpins.couponCode });
     return Response.json(spin, { status: 201 });
   } catch (error) {
